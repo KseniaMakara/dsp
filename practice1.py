@@ -61,7 +61,6 @@ lintrend = True
 xtime, signal = create_signal(srate, duration, signal_type='sine', frequency=frequency,
                               amplitude=amplitude, phase=phase, DC=DC, lintrend=lintrend)
 
-# Create artifact
 window_size = 100
 etime = np.linspace(0, 2, window_size)
 artifact = 2 * np.sin(2 * np.pi * 3 * etime) * np.exp(-3 * etime)
@@ -71,18 +70,17 @@ noise_template = np.zeros_like(signal)
 noise_template[idx : idx + window_size] = artifact
 noise_template = add_noise(noise_template, noise_amplitude=0.02)
 
-# Plot artifact signal
 plt.figure()
 plt.plot(noise_template)
 plt.legend(['Artifact signal'])
 plt.title('Artifact Signal')
 plt.show()
 
-# Add artifact and noise
+# Add noise
 artifact_signal = signal + noise_template
 artifact_signal = add_noise(artifact_signal, noise_amplitude=0.1)
 
-# Plot artifact signal with noise
+# Plot signal with noise
 plt.figure()
 plt.plot(artifact_signal)
 plt.title('Artifact Signal with Noise')
